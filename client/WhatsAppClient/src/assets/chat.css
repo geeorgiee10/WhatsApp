@@ -1,0 +1,268 @@
+.chat {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+    font-family: Arial, sans-serif;
+}
+
+.login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.chatGrupal {
+    display: flex;
+    height: 100%;
+}
+
+
+.listaUsuarios {
+    width: 25%;
+    background-color: var(--fondo-menu-superior); 
+    padding: var(--tamaño-normal);
+    border-right: 1px solid var(--borde-input-WhatsApp);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.listaUsuarios h2 {
+    font-size: var(--tamaño-mediano);
+    font-weight: bold;
+    color: var(--blanco-WhatsApp); 
+    margin-bottom: var(--tamaño-mediano);
+    padding-bottom: var(--tamaño-letras-pequeño);
+    border-bottom: 1px solid var(--borde-input-WhatsApp);
+}
+
+.listaUsuarios ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+.listaUsuarios li {
+    display: flex;
+    align-items: center;
+    padding: var(--tamaño-letras-pequeño);
+    border-bottom: 1px solid var(--borde-input-WhatsApp);
+    color: var(--blanco-WhatsApp);
+    cursor: pointer;
+    transition: background-color 0.5s ease;
+}
+
+.listaUsuarios li:hover {
+    background-color: #e8f5e9; 
+    color: var(--gris-WhatsApp);
+}
+
+.listaUsuarios li:last-child {
+    border-bottom: none;
+}
+
+.apartadoMensajes {
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* padding: 10px; */
+}
+
+.mensajes {
+    background: url('/fondoWhatsapp.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
+    flex-grow: 1;
+    max-height: calc(100vh - 150px); /* Ajusta esto si es necesario */
+    scrollbar-width: thin; /* Para navegadores compatibles */
+    scrollbar-color: var(--borde-input-WhatsApp) transparent;
+
+}
+
+.mensajes::-webkit-scrollbar {
+    width: 6px;
+}
+
+.mensajes::-webkit-scrollbar-thumb {
+    background-color: var(--borde-input-WhatsApp);
+    border-radius: 3px;
+}
+
+.mensajes::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.nombreMensaje{
+    margin: 0;
+    padding-bottom: var(--tamaño-normal);
+    font-weight: bold;
+}
+
+.mensajePropio {
+    max-width: 40%; 
+    min-width: 8%;
+    justify-self: flex-end; 
+    background-color: var(--verde-WhatsApp);
+    color: var(--blanco-WhatsApp);
+    text-align: left;
+    padding: var(--tamaño-letras-pequeño);
+    margin: var(--tamaño-normal);
+    border-radius: var(--radius);
+    word-wrap: break-word; 
+    overflow-wrap: break-word;
+    display: flex;
+    flex-direction: column;
+}
+
+.mensajeOtro {
+    max-width: 40%; 
+    min-width: 8%;
+    justify-self: flex-start; 
+    background-color: var(--gris-WhatsApp);
+    color: var(--blanco-WhatsApp);
+    text-align: left;
+    padding: var(--tamaño-letras-pequeño);
+    margin: var(--tamaño-normal);
+    border-radius: var(--radius);
+    word-wrap: break-word; 
+    overflow-wrap: break-word;
+    display: flex;
+    flex-direction: column;
+}
+
+.mensajeConectado{
+    max-width: 40%; 
+    min-width: 8%;
+    justify-self: center; 
+    background-color: var(--borde-input-WhatsApp);
+    color: var(--gris-WhatsApp);
+    text-align: center;
+    padding: var(--tamaño-letras-pequeño);
+    margin: var(--tamaño-normal);
+    border-radius: var(--radius);
+}
+
+.mensajeOtro .nombreMensaje{
+    animation: colorAleatorio 5s infinite; 
+}
+
+.inputMensaje {
+    display: flex;
+    align-items: center;
+    padding: var(--tamaño-normal);
+    background-color: #ECE5DD; 
+    border-top: 1px solid var(--borde-input-WhatsApp);
+}
+
+.inputMensaje input {
+    flex-grow: 1;
+    padding: var(--tamaño-letras-pequeño);
+    background-color: var(--blanco-WhatsApp); 
+    border: 1px solid var(--borde-input-WhatsApp); 
+    border-radius: var(--radius); 
+    color: black; 
+}
+
+.inputMensaje input::placeholder {
+    color: var(--gris-WhatsApp); 
+}
+
+.inputMensaje button {
+    width: 5%;
+    height: 100%;
+    border-radius: var(--radius);
+    margin-left: var(--tamaño-normal);
+    background-color: var(--verde-WhatsApp);
+    color: var(--blanco-WhatsApp);
+    border: none;
+}
+
+.inputMensaje button:hover{
+    transform: scale(1.05);
+}
+
+.menuSuperior {
+    /* height: 9%; */
+    display: flex;
+    flex-direction: column;
+    background-color: var(--fondo-menu-superior);
+    color: var(--blanco-WhatsApp);
+    padding: var(--tamaño-letras-pequeño) var(--tamaño-normal);
+    border-bottom: 1px solid var(--blanco-WhatsApp);
+}
+
+.detallesMenu{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.detallesMenu h2 {
+    margin: 0;
+    font-size: var(--tamaño-grande);
+    font-weight: bold;
+    color: var(--blanco-WhatsApp);
+    margin-right: var(--tamaño-grande);
+}
+
+.botones {
+    display: flex;
+    align-items: center;
+    justify-self: flex-end;
+}
+
+.botones button {
+    color: #fff;
+    font-size: var(--tamaño-normal);
+    margin-left: var(--tamaño-letras-pequeño);
+    cursor: pointer;
+    padding: var(--tamaño-letras-pequeño);
+    transition: all 0.3s ease;
+}
+
+.botones button:hover {
+    transform: scale(1.1);
+}
+
+.mensajeEscribiendo {
+    font-style: italic;
+    font-size: var(--tamaño-normal);
+    color: var(--blanco-WhatsApp);
+}
+
+.fa-solid {
+    font-size: var(--tamaño-mediano);
+    color: var(--blanco-WhatsApp);
+}
+
+.btnCall{
+    background-color: rgb(73, 73, 73);
+    border: none;
+    border-radius: var(--radius);
+    
+}
+
+.btnSearch{
+    background: none;
+    border: none;
+}
+
+
+@keyframes colorAleatorio {
+    0% { color: #25d366; }
+    25% { color: #128c7e; }
+    50% { color: #34b7f1; }
+    75% { color: #f7f7f7; }
+    100% { color: #25d366; }
+}
