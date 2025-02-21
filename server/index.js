@@ -11,7 +11,8 @@ const io = new Server(server, {
   cors: {
     origin: "http://localhost:5174", 
     methods: ["GET", "POST"]
-  }
+  },
+  addTrailingSlash: false
 });
 var numeroUsuarios = 0;
 var listaUsuarios = [];
