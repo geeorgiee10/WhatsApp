@@ -6,14 +6,6 @@
     font-family: Arial, sans-serif;
 }
 
-.login {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-}
-
 .chatGrupal {
     display: flex;
     height: 100%;
@@ -49,17 +41,27 @@
 
 .listaUsuarios li {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    justify-content: left;
+    align-items: left;
     padding: var(--tamaño-letras-pequeño);
     border-bottom: 1px solid var(--borde-input-WhatsApp);
     color: var(--blanco-WhatsApp);
     cursor: pointer;
     transition: background-color 0.5s ease;
+    position: relative;
+}
+
+.listaUsuarios li .estadoUsuario {
+    font-size: var(--tamaño-pequeño);
+    color: var(--borde-input-WhatsApp);
+    margin-left: var(--tamaño-normal);  
+    word-wrap: break-word; 
+    overflow-wrap: break-word; 
 }
 
 .listaUsuarios li:hover {
-    background-color: #e8f5e9; 
-    color: var(--gris-WhatsApp);
+    transform: scale(1.01);
 }
 
 .listaUsuarios li:last-child {
@@ -84,9 +86,10 @@
     margin: 0;
     overflow-y: auto;
     flex-grow: 1;
-    max-height: calc(100vh - 150px); /* Ajusta esto si es necesario */
-    scrollbar-width: thin; /* Para navegadores compatibles */
+    max-height: calc(100vh - 150px); 
+    scrollbar-width: thin; 
     scrollbar-color: var(--borde-input-WhatsApp) transparent;
+    flex-grow: 1;
 
 }
 
@@ -200,6 +203,7 @@
     color: var(--blanco-WhatsApp);
     padding: var(--tamaño-letras-pequeño) var(--tamaño-normal);
     border-bottom: 1px solid var(--blanco-WhatsApp);
+    flex-shrink: 0;
 }
 
 .detallesMenu{
@@ -259,10 +263,132 @@
 }
 
 
+
+
+.login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: var(--tamaño-normal);
+    background: linear-gradient(to bottom, var(--verde-azulado), var(--verde-landing));
+}
+
+.loginForm{
+    width: 50%;
+    height: 90%;
+    background-color: var(--blanco-WhatsApp);
+    border-radius: var(--radius);
+    padding: var(--tamaño-normal);
+    display: flex;
+    flex-direction: column;
+}
+
+.login h1 {
+    font-size: var(--tamaño-grande);
+    color: var(--verde-WhatsApp);
+    margin-bottom: var(--tamaño-normal);
+    text-align: center;
+    font-weight: bold;
+}
+
+.loginForm label{
+    font-size: var(--tamaño-mediano);
+    color: var(--gris-WhatsApp);
+    margin-left: var(--tamaño-normal);
+}
+
+.loginForm input {
+    width: 100%;
+    padding: var(--tamaño-letras-pequeño);
+    margin: var(--tamaño-normal) 0;
+    border-radius: var(--radius);
+    border: 1px solid var(--borde-input-WhatsApp);
+    background-color: var(--borde-input-WhatsApp);
+    font-size: var(--tamaño-normal);
+    color: black;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.loginForm input::placeholder {
+    color: var(--gris-WhatsApp);
+}
+
+.loginForm button {
+    width: 100%;
+    padding: var(--tamaño-letras-pequeño);
+    margin-top: var(--tamaño-normal);
+    background-color: var(--verde-WhatsApp);
+    border: none;
+    border-radius: var(--radius);
+    color: var(--blanco-WhatsApp);
+    font-size: var(--tamaño-normal);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.loginForm button:hover {
+    transform: scale(1.03);
+}
+
+
+
 @keyframes colorAleatorio {
     0% { color: #25d366; }
     25% { color: #128c7e; }
     50% { color: #34b7f1; }
     75% { color: #f7f7f7; }
     100% { color: #25d366; }
+}
+
+
+@media (max-width: 1000px){
+
+
+    .loginForm{
+        width: 90%;
+        height: 90%;
+    }
+    
+    .listaUsuarios h2 {
+        font-size: var(--tamaño-normal);
+    }
+
+    .apartadoMensajes {
+        justify-content: flex-start;
+        flex-grow: 1;
+        height: auto;
+    }
+
+    .detallesMenu h2 {
+        font-size: var(--tamaño-normal);
+    }
+    
+    .botones button {
+        font-size: var(--tamaño-letras-pequeño);
+    }
+
+    .fa-solid {
+        font-size: var(--tamaño-normal);
+    }
+
+    .mensajePropio {
+        margin-right: var(--tamaño-mediano);
+    }
+    
+    .mensajeOtro {
+        margin-left: var(--tamaño-mediano);
+    }
+    
+    .inputMensaje input {
+        width: 85%; 
+    }
+
+    .inputMensaje button {
+        width: 30%;
+        margin-right: var(--tamaño-letras-pequeño);
+    }
+
 }

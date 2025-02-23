@@ -1,4 +1,6 @@
 @import url(./chat.css); 
+@import url(./landing.css);
+@import url(./error404.css);
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Noto+Sans:wght@400;500;700&display=swap');
 
 
@@ -10,8 +12,11 @@
     --verde-WhatsApp: #005C4B;
     --fondo-Chat: #2C2C2C;
     --fondo-menu-superior:#373737;
+    --verde-landing: #25D366;
+    --verde-azulado: #128C7E;
 
     --radius: 10px;
+    --radius2: 30px;
 
     --tamaño-letras-pequeño: 0.7rem;
 

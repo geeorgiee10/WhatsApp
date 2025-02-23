@@ -9,7 +9,7 @@ const app = express()
 const server = createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5174", 
+    origin: "http://localhost:5173", 
     methods: ["GET", "POST"]
   },
   addTrailingSlash: false
@@ -27,10 +27,11 @@ io.on('connection', (socket) => {
   numeroUsuarios++;
   console.log('Nuevo usuarios, hay ' + numeroUsuarios + ' usuarios conectados');
 
-  socket.on("nombre", (nombre) =>{
+  socket.on("nombre", ({ nombre, estado }) =>{
       socket.nombre = nombre;
+      socket.estado = estado;
       socket.broadcast.emit("Conectado", nombre);
-      listaUsuarios.push(nombre);
+      listaUsuarios.push({ nombre, estado });
       console.log(listaUsuarios);
       io.emit("lista", listaUsuarios);
 
@@ -50,9 +51,11 @@ io.on('connection', (socket) => {
       socket.on('disconnect', () => {
         console.log('user disconnected');
         numeroUsuarios--;
-        listaUsuarios = listaUsuarios.filter(usuario => usuario !== socket.nombre);
+        listaUsuarios = listaUsuarios.filter(usuario => usuario.nombre !== socket.nombre);
         io.emit("lista", listaUsuarios);
-        socket.broadcast.emit("Desconectado", socket.nombre);
+        if (socket.nombre) {
+          socket.broadcast.emit("Desconectado", socket.nombre);
+        }
         console.log('Ahora hay ' + numeroUsuarios + ' usuarios conectados');
       });
       

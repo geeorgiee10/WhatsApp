@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
 import { io } from 'socket.io-client';
 
 var socket;
@@ -9,13 +10,14 @@ export function Chat() {
     const [mensajeEscribiendo, setMensajeEscribiendo] = useState([])
     const [users, setUsers] = useState([]);
     const [user, setUser] = useState('');
+    const [estado, setEStado] = useState('');
     const [text, setText] = useState('');
     const [temporizador, setTemporizador] = useState(null);
     const [estaEscribiendo, setEstaEscribiendo] = useState(false);
     const [estaConectado, setEstaConectado] = useState(false);
 
     useEffect(() => {
-        socket = io(/*"http://127.0.0.1:5000"*/);
+        socket = io("http://127.0.0.1:2908");
         socket.connect();
       
         socket.on("HolaDesdeElServidor", (jsonDatos) => {
@@ -81,7 +83,7 @@ export function Chat() {
 
     const sendUserName = () => {
         if (socket && user.trim()) {
-            socket.emit("nombre", user);
+            socket.emit("nombre", { nombre: user, estado: estado });
             setEstaConectado(true);
         }
     };
@@ -106,8 +108,17 @@ export function Chat() {
         <div className='chat'>
             {!estaConectado ?(
                 <div className='login'>
-                    <input type="text" placeholder="Tu nombre" value={user} onChange={(e) => setUser(e.target.value)}/>
-                    <button onClick={sendUserName} >Enviar Nombre</button>
+                    <div className='loginForm'>
+                        <h1>Elige tus datos</h1>
+                        <label htmlFor="nombre">Nombre</label>
+                        <input id='nombre' type="text" placeholder="Escribe tu nombre" value={user} onChange={(e) => setUser(e.target.value)} required/>
+                        <label htmlFor="estado">Estado</label>
+                        <input id='estado' type="text" placeholder="Escribe un estado" value={estado} onChange={(e) => setEStado(e.target.value)}/>
+                        <button onClick={sendUserName}>Entrar al chat</button>
+                        <Link to="/">
+                            <button >Volver atras</button>
+                        </Link>
+                    </div>
                 </div>
             ):(
                 <div className='chatGrupal'>
@@ -115,7 +126,10 @@ export function Chat() {
                         <h2>Usuarios conectados</h2>
                         <ul>
                             {users.map((user, index) => (
-                                <li key={index}>{user}</li>
+                                <li key={index}>
+                                    {user.nombre} 
+                                    {user.estado && <span className='estadoUsuario'>{user.estado}</span>}
+                                </li>
                             ))}
                         </ul>
                     </div>
@@ -126,9 +140,9 @@ export function Chat() {
                                 <h2>Chat Grupal</h2>
 
                                 <div className='botones'>
-                                    <button className='btnCall'><i class="fa-solid fa-video"></i></button>
-                                    <button className='btnCall'><i class="fa-solid fa-phone"></i></button>
-                                    <button className='btnSearch'><i class="fa-solid fa-magnifying-glass"></i></button>
+                                    <button className='btnCall'><i className="fa-solid fa-video"></i></button>
+                                    <button className='btnCall'><i className="fa-solid fa-phone"></i></button>
+                                    <button className='btnSearch'><i className="fa-solid fa-magnifying-glass"></i></button>
                                 </div>
                             </div>
                             <div>

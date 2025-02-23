@@ -1,0 +1,78 @@
+.Error404 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to bottom, var(--verde-azulado), var(--verde-landing)); 
+}
+  
+.containerError {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    padding: var(--tamaño-mediano);
+    background-color: white;
+    border-radius: var(--radius);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 40%;
+}
+  
+.mensaje {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+  
+.tituloError {
+    font-size: var(--tamaño-grande);
+    color: var(--verde-landing); 
+    margin: 0;
+}
+  
+.subtituloError {
+    font-size: var(--tamaño-grande);
+    color: var(--verde-landing);
+}
+  
+.iconoWhatsapp {
+    width: 2.5rem;
+    height: 2.5rem;
+    text-align: center;
+}
+  
+.textoError {
+    font-size: var(--tamaño-normal);
+    color: var(--gris-WhatsApp);
+}
+  
+.boton {
+    background-color: var(--verde-landing);
+    color: var(--blanco-WhatsApp);
+    border: none;
+    padding: var(--tamaño-normal) var(--tamaño-mediano);
+    font-size: var(--tamaño-normal);
+    cursor: pointer;
+    border-radius: var(--radius2);
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+  
+.boton:hover {
+    background-color: var(--verde-WhatsApp);
+    transform: scale(1.05);
+}
+  
+.LinkRouter {
+    text-decoration: none; 
+}
+  
+
+@media (max-width: 1350px) {
+
+    .containerError {
+        width: 70%;
+    }
+
+}

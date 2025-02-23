@@ -1,0 +1,133 @@
+.containerLanding {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    height: 100vh;
+    background: linear-gradient(to bottom, var(--verde-azulado), var(--verde-landing));
+}
+
+.landingPage{
+    width: 70%;
+    height: 60%;
+    background: var(--blanco-WhatsApp);
+    padding: var(--tamaño-normal);
+    border-radius: var(--radius);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.landingContent{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.whatsappIcono {
+    font-size: var(--tamaño-grande);
+    color: var(--verde-landing);
+    margin-bottom: var(--tamaño-normal);
+}
+
+.tituloLanding {
+    color: var(--verde-WhatsApp);
+    font-size: var(--tamaño-grande);
+}
+
+.textoLanding {
+    font-size: var(--tamaño-mediano);
+    color: var(--gris-WhatsApp);
+}
+
+.whatsappBoton {
+    background-color: var(--verde-landing);
+    color: var(--blanco-WhatsApp);
+    border: none;
+    padding: var(--tamaño-normal) var(--tamaño-mediano);
+    font-size: var(--tamaño-mediano);
+    cursor: pointer;
+    border-radius: var(--radius);
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.whatsappBoton:hover {
+    background-color: var(--verde-WhatsApp);
+    transform: scale(1.05);
+}
+
+.barraCarga {
+    width: 100%;
+    height: var(--tamaño-letras-pequeño);
+    background-color: var(--verde-landing);
+    animation: carga 2s linear forwards; 
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.qr {
+    width: 20rem;  
+    height: 20rem;
+}
+
+.qr img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+  
+
+@keyframes carga {
+    0% {
+        width: 0%;
+    }
+    50% {
+      width: 50%;
+    }
+    100% {
+      width: 100%;
+    }
+}
+
+
+@media (max-width: 1350px) {
+    
+    .landingPage {
+        height: auto;
+        flex-direction: column-reverse;
+        width: 80%; 
+        margin-top: var(--tamaño-normal);
+    }
+
+    .tituloLanding {
+        font-size: var(--tamaño-mediano);
+    }
+    
+    .textoLanding {
+        font-size: var(--tamaño-normal);
+    }
+
+    .whatsappBoton {
+        width: 100%;
+        font-size: var(--tamaño-normal); 
+        padding: var(--tamaño-normal) 0; 
+    }
+
+    .qr {
+        width: 15rem; 
+        height: 15rem;
+    }
+
+    .landingContent {
+        width: 100%; 
+    }
+}
