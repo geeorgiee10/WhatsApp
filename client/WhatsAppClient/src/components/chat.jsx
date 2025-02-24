@@ -16,7 +16,7 @@ export function Chat() {
     const [estaEscribiendo, setEstaEscribiendo] = useState(false);
     const [estaConectado, setEstaConectado] = useState(false);
     const [imagenes, setImagenes] = useState([]);
-    const [imagenElegida, setimagenElegida] = useState();
+    const [imagenElegida, setimagenElegida] = useState('');
 
     useEffect(() => {
         socket = io("http://127.0.0.1:2908");
@@ -83,7 +83,7 @@ export function Chat() {
 
     const sendMessage = () => {
         if (text.trim() === '') return;
-        const mensaje = { nombre: user, texto: text};
+        const mensaje = { nombre: user, texto: text, imagen: imagenElegida }; 
         socket.emit("mensaje", JSON.stringify(mensaje));
         setText('');
         socket.emit("noEscribiendo", user);
@@ -92,7 +92,7 @@ export function Chat() {
 
     const sendUserName = () => {
         if (socket && user.trim()) {
-            socket.emit("nombre", { nombre: user, estado: estado, imagen: imagenElegida });
+            socket.emit("nombre", { nombre: user, estado: estado, imagenPredefinida: imagenElegida });
             setEstaConectado(true);
         }
     };
@@ -126,10 +126,10 @@ export function Chat() {
                         <input id='estado' type="text" placeholder="Escribe un estado" value={estado} onChange={(e) => setEStado(e.target.value)}/>
 
                         <label htmlFor="avatar">Elige tu avatar</label>
-                        <div className="avatar-selector">
+                        <div className="imagenesPredefinidas">
                             {imagenes.map((avatar, index) => (
                                 <img key={index} src={avatar} alt={`Avatar ${index + 1}`}
-                                    className={imagenElegida === avatar ? 'avatar-selected' : 'avatar'}
+                                    className={imagenElegida === avatar ? 'avatarSeleccionado' : 'avatar'}
                                     onClick={() => setimagenElegida(avatar)} />
                             ))}
                         </div>
@@ -146,8 +146,10 @@ export function Chat() {
                         <ul>
                             {users.map((user, index) => (
                                 <li key={index}>
-                                    <img src={user.imagenPredefinida} alt="Avatar" className="avatar-small" />
-                                    {user.nombre} 
+                                    <div className='usuarioDatosPrincipales'>
+                                        <img src={user.imagenPredefinida} alt="Avatar" className="imagenAvatarPagina" />
+                                        {user.nombre} 
+                                    </div>
                                     {user.estado && <span className='estadoUsuario'>{user.estado}</span>}
                                 </li>
                             ))}
@@ -157,7 +159,10 @@ export function Chat() {
                     <div className='apartadoMensajes'>
                         <div className='menuSuperior'>
                             <div className='detallesMenu'>
+                            <div className='datosMenu'>
+                                <img src={imagenElegida} alt="Avatar" className="avatar" />
                                 <h2>Chat Grupal</h2>
+                            </div>
 
                                 <div className='botones'>
                                     <button className='btnCall'><i className="fa-solid fa-video"></i></button>
@@ -174,11 +179,19 @@ export function Chat() {
                         </div>
                         <ul className='mensajes'>
                             {messages.map((message, index) => (
-                                <li key={index} 
-                                className={message.texto === "se ha conectado" || message.texto === "se ha desconectado" ? "mensajeConectado" : (message.nombre === user ? "mensajePropio" : "mensajeOtro")}>
-                                    <img src={message.avatar} alt="Avatar" className="avatar-small" />
-                                    <span className='nombreMensaje'>{message.nombre}</span> {message.texto}
-                                </li>
+                                message.texto !== "se ha conectado" && message.texto !== "se ha desconectado" ? (
+                                    <li key={index} className={message.nombre === user ? "mensajePropio" : "mensajeOtro"}>
+                                        <div className='mensajeDatos'>
+                                            <img src={message.imagen} alt="img" className="imagenAvatarPagina" />
+                                            <span className='nombreMensaje'>{message.nombre}</span>
+                                        </div>
+                                        {message.texto}
+                                    </li>
+                                ) : (
+                                    <li key={index} className="mensajeConectado">
+                                        <span className='nombreMensaje'>{message.nombre}</span> {message.texto}
+                                    </li>
+                                )
                             ))}
                         </ul>
 
@@ -187,7 +200,7 @@ export function Chat() {
                                 onChange={(e) => {setText(e.target.value); comprobarEstaEscribiendo();}}
                                 onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
                             />
-                            <button onClick={sendMessage}><i class="fa-solid fa-paper-plane"></i></button>
+                            <button onClick={sendMessage}><i className="fa-solid fa-paper-plane"></i></button>
                         </div>
                     </div>
 

@@ -52,10 +52,16 @@
     position: relative;
 }
 
+.usuarioDatosPrincipales{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 .listaUsuarios li .estadoUsuario {
     font-size: var(--tamaño-pequeño);
     color: var(--borde-input-WhatsApp);
-    margin-left: var(--tamaño-normal);  
+    margin-left: var(--tamaño-grande);  
     word-wrap: break-word; 
     overflow-wrap: break-word; 
 }
@@ -104,7 +110,6 @@
 
 .nombreMensaje{
     margin: 0;
-    padding-bottom: var(--tamaño-normal);
     font-weight: bold;
 }
 
@@ -138,6 +143,13 @@
     overflow-wrap: break-word;
     display: flex;
     flex-direction: column;
+}
+
+.mensajeDatos{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-bottom: var(--tamaño-normal);
 }
 
 .mensajeConectado{
@@ -200,6 +212,13 @@
     padding: var(--tamaño-letras-pequeño) var(--tamaño-normal);
     border-bottom: 1px solid var(--blanco-WhatsApp);
     flex-shrink: 0;
+}
+
+.datosMenu{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--tamaño-normal);
 }
 
 .detallesMenu{
@@ -329,26 +348,41 @@
     transform: scale(1.03);
 }
 
+.imagenesPredefinidas{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: var(--tamaño-mediano);
+    align-items: center;
+    justify-content: center;
+    margin-top: auto;
+    margin-bottom: auto;
+}
 
-.avatar-selector img {
-    width: 50px;
-    height: 50px;
+.imagenesPredefinidas img {
+    width: var(--tamaño-muy-grande);
+    height: var(--tamaño-muy-grande);
     border-radius: 50%;
     cursor: pointer;
-    margin: 5px;
     transition: transform 0.2s ease-in-out;
 }
 
-.avatar-selected {
-    border: 3px solid blue;
+.avatarSeleccionado {
+    border: 3px solid var(--verde-WhatsApp);
     transform: scale(1.1);
 }
 
-.avatar-small {
-    width: 30px;
-    height: 30px;
+.imagenAvatarPagina {
+    width: var(--tamaño-grande);
+    height: var(--tamaño-grande);
     border-radius: 50%;
-    margin-right: 10px;
+    margin-right: var(--tamaño-letras-pequeño);
+}
+
+.avatar{
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
 }
 
 
