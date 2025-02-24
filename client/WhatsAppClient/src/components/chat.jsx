@@ -15,10 +15,14 @@ export function Chat() {
     const [temporizador, setTemporizador] = useState(null);
     const [estaEscribiendo, setEstaEscribiendo] = useState(false);
     const [estaConectado, setEstaConectado] = useState(false);
+    const [imagenes, setImagenes] = useState([]);
+    const [imagenElegida, setimagenElegida] = useState();
 
     useEffect(() => {
         socket = io("http://127.0.0.1:2908");
         socket.connect();
+
+        
       
         socket.on("HolaDesdeElServidor", (jsonDatos) => {
             let datos = JSON.parse(jsonDatos);
@@ -46,6 +50,11 @@ export function Chat() {
                 }
                 return prev; 
             });
+        });
+
+        socket.on("imagenesPredefinidas", (lista) => {
+            setImagenes(lista);
+            setimagenElegida(lista[0]); 
         });
 
         socket.on("lista", (lista) => {
@@ -83,7 +92,7 @@ export function Chat() {
 
     const sendUserName = () => {
         if (socket && user.trim()) {
-            socket.emit("nombre", { nombre: user, estado: estado });
+            socket.emit("nombre", { nombre: user, estado: estado, imagen: imagenElegida });
             setEstaConectado(true);
         }
     };
@@ -112,8 +121,18 @@ export function Chat() {
                         <h1>Elige tus datos</h1>
                         <label htmlFor="nombre">Nombre</label>
                         <input id='nombre' type="text" placeholder="Escribe tu nombre" value={user} onChange={(e) => setUser(e.target.value)} required/>
+
                         <label htmlFor="estado">Estado</label>
                         <input id='estado' type="text" placeholder="Escribe un estado" value={estado} onChange={(e) => setEStado(e.target.value)}/>
+
+                        <label htmlFor="avatar">Elige tu avatar</label>
+                        <div className="avatar-selector">
+                            {imagenes.map((avatar, index) => (
+                                <img key={index} src={avatar} alt={`Avatar ${index + 1}`}
+                                    className={imagenElegida === avatar ? 'avatar-selected' : 'avatar'}
+                                    onClick={() => setimagenElegida(avatar)} />
+                            ))}
+                        </div>
                         <button onClick={sendUserName}>Entrar al chat</button>
                         <Link to="/">
                             <button >Volver atras</button>
@@ -127,6 +146,7 @@ export function Chat() {
                         <ul>
                             {users.map((user, index) => (
                                 <li key={index}>
+                                    <img src={user.imagenPredefinida} alt="Avatar" className="avatar-small" />
                                     {user.nombre} 
                                     {user.estado && <span className='estadoUsuario'>{user.estado}</span>}
                                 </li>
@@ -156,6 +176,7 @@ export function Chat() {
                             {messages.map((message, index) => (
                                 <li key={index} 
                                 className={message.texto === "se ha conectado" || message.texto === "se ha desconectado" ? "mensajeConectado" : (message.nombre === user ? "mensajePropio" : "mensajeOtro")}>
+                                    <img src={message.avatar} alt="Avatar" className="avatar-small" />
                                     <span className='nombreMensaje'>{message.nombre}</span> {message.texto}
                                 </li>
                             ))}

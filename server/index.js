@@ -17,6 +17,15 @@ const io = new Server(server, {
 var numeroUsuarios = 0;
 var listaUsuarios = [];
 
+
+const imagenesPredefinidas = [
+  "/images/man.png",
+  "/images/boy.png",
+  "/images/girl.png",
+  "/images/woman.png",
+  "/images/gamer.png"
+];
+
 /*app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/WhatsAppClient/index.html'));
 })*/
@@ -25,13 +34,15 @@ app.use(express.static(path.join(__dirname, '/public')))
 
 io.on('connection', (socket) => {
   numeroUsuarios++;
+  socket.emit("imagenesPredefinidas", imagenesPredefinidas);
   console.log('Nuevo usuarios, hay ' + numeroUsuarios + ' usuarios conectados');
 
-  socket.on("nombre", ({ nombre, estado }) =>{
+  socket.on("nombre", ({ nombre, estado, imagenPredefinida }) =>{
       socket.nombre = nombre;
       socket.estado = estado;
+      socket.imagenPredefinida = imagenPredefinida;
       socket.broadcast.emit("Conectado", nombre);
-      listaUsuarios.push({ nombre, estado });
+      listaUsuarios.push({ nombre, estado, imagenPredefinida });
       console.log(listaUsuarios);
       io.emit("lista", listaUsuarios);
 
@@ -60,10 +71,6 @@ io.on('connection', (socket) => {
       });
       
   });
-
-  
-  
-  
 });
 
 server.listen(port, () => {

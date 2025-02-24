@@ -60,10 +60,6 @@
     overflow-wrap: break-word; 
 }
 
-.listaUsuarios li:hover {
-    transform: scale(1.01);
-}
-
 .listaUsuarios li:last-child {
     border-bottom: none;
 }
@@ -334,6 +330,27 @@
 }
 
 
+.avatar-selector img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin: 5px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.avatar-selected {
+    border: 3px solid blue;
+    transform: scale(1.1);
+}
+
+.avatar-small {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
 
 @keyframes colorAleatorio {
     0% { color: #25d366; }
@@ -345,8 +362,6 @@
 
 
 @media (max-width: 1000px){
-
-
     .loginForm{
         width: 90%;
         height: 90%;
