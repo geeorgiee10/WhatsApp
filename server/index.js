@@ -19,11 +19,11 @@ var listaUsuarios = [];
 
 
 const imagenesPredefinidas = [
-  "http://localhost:2908/images/man.png",
-  "http://localhost:2908/images/boy.png",
-  "http://localhost:2908/images/girl.png",
-  "http://localhost:2908/images/woman.png",
-  "http://localhost:2908/images/gamer.png"
+  "./images/man.png",
+  "./images/boy.png",
+  "./images/girl.png",
+  "./images/woman.png",
+  "./images/gamer.png"
 ];
 
 /*app.get('/', (req, res) => {

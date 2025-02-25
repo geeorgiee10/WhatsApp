@@ -19,7 +19,7 @@ export function Chat() {
     const [imagenElegida, setimagenElegida] = useState('');
 
     useEffect(() => {
-        socket = io("http://127.0.0.1:2908");
+        socket = io(/*"http://127.0.0.1:2908"*/);
         socket.connect();
 
         
