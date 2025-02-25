@@ -21,6 +21,3 @@
 ✅ Envío y recepción de mensajes en tiempo real  
 ✅ Autenticación de usuario  
 
----
-
-¡Esperamos que disfrutes explorando y contribuyendo a este proyecto! 🚀
