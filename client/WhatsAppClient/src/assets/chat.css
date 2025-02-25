@@ -440,4 +440,9 @@
         margin-right: var(--tamaño-letras-pequeño);
     }
 
+    .imagenesPredefinidas img {
+        width: var(--tamaño-mediano);
+        height: var(--tamaño-mediano);
+    }
+
 }
