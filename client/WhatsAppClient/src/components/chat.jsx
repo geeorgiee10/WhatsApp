@@ -17,6 +17,7 @@ export function Chat() {
     const [estaConectado, setEstaConectado] = useState(false);
     const [imagenes, setImagenes] = useState([]);
     const [imagenElegida, setimagenElegida] = useState('');
+    const [archivos, setArchivos] = useState(null);
 
     useEffect(() => {
         socket = io(/*"http://127.0.0.1:4000"*/);
@@ -81,11 +82,55 @@ export function Chat() {
         };
     }, []);
 
+
+
+    const subirArchivo = async () => {
+        if (!archivos) return;
+        
+        const formData = new FormData();
+        formData.append('sampleFile', archivos);
+        
+        try {
+            console.log("Enviando archivo:", archivos.name);
+
+            const response = await fetch('/upload', {
+                method: 'POST',
+                body: formData
+            });
+            
+            const data = await response.json();
+            
+            const mensaje = { 
+                nombre: user, 
+                texto: text, 
+                imagen: imagenElegida,
+                archivo: {
+                  url: data.url,
+                  nombre: archivos.name,
+                  tipo: archivos.type
+                }
+              };
+            
+            socket.emit("mensaje", JSON.stringify(mensaje));
+            setText('');
+            setArchivos(null);
+        } catch (error) {
+            console.error("Error al subir el archivo:", error);
+        }
+    };
+
     const sendMessage = () => {
-        if (text.trim() === '') return;
-        const mensaje = { nombre: user, texto: text, imagen: imagenElegida }; 
-        socket.emit("mensaje", JSON.stringify(mensaje));
-        setText('');
+        if (text.trim() === '' && !archivos) return;
+        
+        if(archivos){
+            subirArchivo();
+        }
+        else{
+            const mensaje = { nombre: user, texto: text, imagen: imagenElegida }; 
+            socket.emit("mensaje", JSON.stringify(mensaje));
+            setText('');
+        }
+        
         socket.emit("noEscribiendo", user);
         setEstaEscribiendo(false);
     };
@@ -174,6 +219,11 @@ export function Chat() {
                                 {mensajeEscribiendo.map((message, index) => (
                                     <p key={index} className='mensajeEscribiendo'>{message.nombre}</p>
                                 ))}
+                                {archivos && (
+                                <div className="archivoSeleccionado">
+                                    <p>Archivo: {archivos.name}</p>
+                                </div>
+                            )}
                             </div>
                             
                         </div>
@@ -186,6 +236,38 @@ export function Chat() {
                                             <span className='nombreMensaje'>{message.nombre}</span>
                                         </div>
                                         {message.texto}
+
+                                        {message.archivo && (
+                                            <div className="archivoCompartido">
+                                                {message.archivo.tipo && message.archivo.tipo.startsWith('image/') ? (
+                                                  <div className="imagenYDescarga">
+                                                    <img 
+                                                      src={message.archivo.url} 
+                                                      alt="Imagen compartida" 
+                                                      className="imagenCompartida" 
+                                                      onClick={() => window.open(message.archivo.url, '_blank')}
+                                                    />
+                                                    <a 
+                                                      href={message.archivo.url} 
+                                                      download={message.archivo.nombre}
+                                                      className="enlaceDescargaImagen"
+                                                    >
+                                                      <i className="fa-solid fa-file-download"></i> Descargar
+                                                    </a>
+                                                  </div>
+                                                ) : (
+                                                    <a 
+                                                        href={message.archivo.url} 
+                                                        download={message.archivo.nombre}
+                                                        target="_blank" 
+                                                        rel="noopener noreferrer"
+                                                        className="enlaceDescarga"
+                                                    >
+                                                            <i className="fa-solid fa-file-download"></i> {message.archivo.nombre}
+                                                    </a>
+                                                )}
+                                            </div>
+                                        )}
                                     </li>
                                 ) : (
                                     <li key={index} className="mensajeConectado">
@@ -200,6 +282,12 @@ export function Chat() {
                                 onChange={(e) => {setText(e.target.value); comprobarEstaEscribiendo();}}
                                 onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
                             />
+                            <input type="file" id="fileInput" style={{display: 'none'}} 
+                                onChange={(e) => setArchivos(e.target.files[0])}
+                            />
+                            <button onClick={() => document.getElementById('fileInput').click()}>
+                                <i className="fa-solid fa-paperclip"></i>
+                            </button>
                             <button onClick={sendMessage}><i className="fa-solid fa-paper-plane"></i></button>
                         </div>
                     </div>

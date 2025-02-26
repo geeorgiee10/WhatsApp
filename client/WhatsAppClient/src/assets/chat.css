@@ -385,6 +385,54 @@
     border-radius: 50%;
 }
 
+.imagenYDescarga {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+  
+.imagenCompartida {
+    max-width: 100%;
+    height: auto;
+    cursor: pointer;
+}
+
+.enlaceDescargaImagen {
+    margin-top: var(--tamaño-normal);
+    font-size: 14px;
+    color: var(--blanco-WhatsApp);
+    text-decoration: none;
+}
+  
+.enlaceDescargaImagen:hover {
+    text-decoration: underline;
+}
+
+.archivoCompartido {
+    margin-top: var(--tamaño-normal);
+    max-width: 100%;
+}
+
+.enlaceDescarga {
+    display: inline-block;
+    padding: var(--tamaño-normal) var(--tamaño-mediano);
+    background-color: var(--blanco-WhatsApp);
+    border-radius: var(--radius);
+    color: var(--gris-WhatsApp);
+    text-decoration: none;
+}
+
+.enlaceDescarga i {
+    margin-right: var(--tamaño-normal);
+    color: var(--verde-WhatsApp);
+}
+
+.archivoSeleccionado {
+    margin-top: var(--tamaño-normal);
+    font-size: var(--tamaño-mediano);
+    color: var(--verde-landing);
+    font-weight: bold;
+  }
 
 @keyframes colorAleatorio {
     0% { color: #25d366; }
